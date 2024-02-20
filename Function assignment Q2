@@ -1,0 +1,53 @@
+// Iterative approach
+
+#include <stdio.h>
+
+int main() {
+    int n, i, num1 = 0, num2 = 1, nextTerm;
+
+    printf("Enter the number of terms: ");
+    scanf("%d", &n);
+
+    printf("Fibonacci Series: ");
+
+    for (i = 1; i <= n; ++i) {
+        printf("%d ", num1);
+        nextTerm = num1 + num2;
+        num1 = num2;
+        num2 = nextTerm;
+    }
+
+    printf("\n");
+
+    return 0;
+}
+
+//Recursive approach
+#include <stdio.h>
+
+int fibonacci(int n) {
+    if (n == 0) {
+        return 0;
+    } else if (n == 1) {
+        return 1;
+    } else {
+        return fibonacci(n - 1) + fibonacci(n - 2);
+    }
+}
+
+int main() {
+    int n, i;
+
+    printf("Enter the number of terms: ");
+    scanf("%d", &n);
+
+    printf("Fibonacci Series: ");
+
+    for (i = 0; i < n; ++i) {
+        printf("%d ", fibonacci(i));
+    }
+
+    printf("\n");
+
+    return 0;
+}
