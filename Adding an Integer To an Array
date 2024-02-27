@@ -1,0 +1,56 @@
+#include <stdio.h>
+
+#define ARRAY_SIZE 9
+
+int main()
+{
+    int array[ARRAY_SIZE]= {1, 2, 3, 4, 5, 6, 8, 9};
+
+    int total = 8; // Intentionally set total to 8 (elements to be input)
+
+
+    // Input elements (8 values)
+    printf("Enter 8 elements:\n");
+    for (int i = 0; i < total; i++) {
+        printf("array[%d] = ", i);
+        scanf("%d", &array[i]);
+    }
+
+    printf("\n");
+    printf("array = ");
+    for (int i = 0; i < total; i++) {
+        printf("%d ", array[i]);
+    }
+    printf("\n");
+
+    // Choose an index to insert the new element
+    int insert_index = 6; // Modify this to choose a different insertion point
+
+    // Check if the chosen index is within valid bounds (excluding first and last)
+    if (insert_index < 1 || insert_index >= total) {
+        printf("Error: Invalid insertion index. Please choose an index between 1 and %d (excluding first and last elements).\n", total - 1);
+        return 1;
+    }
+
+    // Shift elements to the right starting from the insertion index
+    int value_to_insert = 7
+    ; // Replace with the value you want to insert
+    for (int i = total - 1; i >= insert_index; i--) {
+        array[i + 1] = array[i]; // Shift elements one position to the right
+    }
+
+    // Insert the new element at the chosen index
+    array[insert_index] = value_to_insert;
+
+    // Update total elements (now 7)
+    total++;
+
+    printf("Updated array after inserting %d at index %d: ", value_to_insert, insert_index);
+    for (int i = 0; i < total; i++) {
+        printf("%d ", array[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
+
