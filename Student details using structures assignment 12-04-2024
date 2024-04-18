@@ -1,0 +1,83 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// Structure to store student details
+struct Student {
+    char firstName[50];
+    char lastName[50];
+    int regNumber;
+    char units[3][20];
+};
+
+// Function to input student details
+void inputStudent(struct Student *student) {
+    printf("Enter student details:\n");
+    printf("First Name: ");
+    scanf("%s", student->firstName);
+    printf("Last Name: ");
+    scanf("%s", student->lastName);
+    printf("Registration Number: ");
+    scanf("%d", &student->regNumber);
+    printf("Enter 3 units (separated by spaces): ");
+    for (int i = 0; i < 3; ++i)
+        scanf("%s", student->units[i]);
+}
+
+// Function to display student details
+void displayStudent(const struct Student *student) {
+    printf("\nStudent Details:\n");
+    printf("Name: %s %s\n", student->firstName, student->lastName);
+    printf("Reg Number: %d\n", student->regNumber);
+    printf("Units Registered: %s, %s, %s\n", student->units[0], student->units[1], student->units[2]);
+}
+
+// Function to edit student details
+void editStudent(struct Student *student) {
+    printf("\nEnter new details for student:\n");
+    inputStudent(student);
+}
+
+int main() {
+    struct Student student;
+    FILE *file;
+    int choice;
+
+    // Input student details
+    inputStudent(&student);
+
+    // Write student details to file
+    file = fopen("student_details.txt", "w");
+    if (file == NULL) {
+        printf("Error opening file for writing.\n");
+        exit(1);
+    }
+    fprintf(file, "%s %s %d %s %s %s\n", student.firstName, student.lastName,
+            student.regNumber, student.units[0], student.units[1], student.units[2]);
+    fclose(file);
+
+    // Display student details
+    displayStudent(&student);
+
+    // Menu for editing
+    printf("\nMenu:\n1. Edit student details\n2. Exit\nEnter your choice: ");
+    scanf("%d", &choice);
+
+    if (choice == 1) {
+        editStudent(&student);
+        // Update file with edited details
+        file = fopen("student_details.txt", "w");
+        if (file == NULL) {
+            printf("Error opening file for writing.\n");
+            exit(1);
+        }
+        fprintf(file, "%s %s %d %s %s %s\n", student.firstName, student.lastName,
+                student.regNumber, student.units[0], student.units[1], student.units[2]);
+        fclose(file);
+        printf("\nStudent details updated successfully!\n");
+    } else {
+        printf("\nExiting program.\n");
+    }
+
+    return 0;
+}
