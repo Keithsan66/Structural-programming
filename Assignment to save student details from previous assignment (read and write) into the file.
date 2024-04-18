@@ -1,0 +1,45 @@
+#include <studio.h>
+#include <string.h>
+int main() {
+    struct Student student;
+    FILE *file;
+    int choice;
+
+    // Input student details
+    inputStudent(&student);
+
+    // Write student details to file
+    file = fopen("student_details.txt", "w");
+    if (file == NULL) {
+        printf("Error opening file for writing.\n");
+        exit(1);
+    }
+    fprintf(file, "%s %s %d %s %s %s\n", student.firstName, student.lastName,
+            student.regNumber, student.units[0], student.units[1], student.units[2]);
+    fclose(file);
+
+    // Display student details
+    displayStudent(&student);
+
+    // Menu for editing
+    printf("\nMenu:\n1. Edit student details\n2. Exit\nEnter your choice: ");
+    scanf("%d", &choice);
+
+    if (choice == 1) {
+        editStudent(&student);
+        // Update file with edited details
+        file = fopen("student_details.txt", "w");
+        if (file == NULL) {
+            printf("Error opening file for writing.\n");
+            exit(1);
+        }
+        fprintf(file, "%s %s %d %s %s %s\n", student.firstName, student.lastName,
+                student.regNumber, student.units[0], student.units[1], student.units[2]);
+        fclose(file);
+        printf("\nStudent details updated successfully!\n");
+    } else {
+        printf("\nExiting program.\n");
+    }
+
+    return 0;
+}
